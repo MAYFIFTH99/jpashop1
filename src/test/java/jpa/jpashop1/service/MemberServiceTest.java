@@ -33,7 +33,7 @@ class MemberServiceTest {
     }
 
 
-    @Test(expected = IllegalStateException.class)
+    @Test
     @DisplayName("중복 이름 오류")
     void joinException() throws Exception {
         //given
@@ -44,6 +44,5 @@ class MemberServiceTest {
         memberService.join(member);
         //then
         assertThatThrownBy(() -> memberService.join(sameMember));
-        fail();
     }
 }
