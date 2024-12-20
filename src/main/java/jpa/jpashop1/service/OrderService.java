@@ -1,9 +1,6 @@
 package jpa.jpashop1.service;
 
-import jpa.jpashop1.domain.Delivery;
-import jpa.jpashop1.domain.Member;
-import jpa.jpashop1.domain.Order;
-import jpa.jpashop1.domain.OrderItem;
+import jpa.jpashop1.domain.*;
 import jpa.jpashop1.domain.item.Item;
 import jpa.jpashop1.repository.ItemRepository;
 import jpa.jpashop1.repository.MemberRepository;
@@ -11,6 +8,8 @@ import jpa.jpashop1.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -52,6 +51,8 @@ public class OrderService {
     }
 
     //검색
-//    public List<Order> findOrders(OrderSearchCond cond){}
+    public List<Order> findOrders(OrderSearch orderSearch) {
+        return orderRepository.findAllByString(orderSearch);
+    }
 
 }
