@@ -12,6 +12,14 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
 logging:
-  level:
-    org.hibernate.SQL: debug
+  level:  # 각 package 별로 로깅 레벨을 지정할 수 있다.
+    root : INFO
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql:
+              BasicBinder: INFO              # TRACE org.hibernate.type.descriptor.sql.BasicBinder.bind 로그를 지웁니다.
+        SQL: INFO
