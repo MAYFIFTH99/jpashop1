@@ -21,7 +21,6 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final MemberRepository memberRepository;
     private final ItemRepository itemRepository;
-    private final DataSourceTransactionManager transactionManager;
 
 
     /**
