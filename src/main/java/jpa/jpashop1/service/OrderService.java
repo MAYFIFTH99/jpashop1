@@ -9,7 +9,6 @@ import jpa.jpashop1.repository.ItemRepository;
 import jpa.jpashop1.repository.MemberRepository;
 import jpa.jpashop1.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

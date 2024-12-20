@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ItemForm {
+public class BookForm {
 
     private String name;
     private int price;
