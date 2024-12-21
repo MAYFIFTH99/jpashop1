@@ -6,6 +6,8 @@ import jpa.jpashop1.domain.Order;
 import jpa.jpashop1.domain.OrderSearch;
 import jpa.jpashop1.domain.OrderStatus;
 import jpa.jpashop1.repository.OrderRepository;
+import jpa.jpashop1.repository.order.simplequery.OrderSimpleQueryDto;
+import jpa.jpashop1.repository.order.simplequery.OrderSimpleQueryRepository;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +28,7 @@ import java.util.List;
 public class OrderSimpleApiController {
 
     private final OrderRepository orderRepository;
+    private final OrderSimpleQueryRepository orderSimpleQueryRepository;
 
     @GetMapping("/api/v1/simple-orders")
     public List<Order> orddersV1() {
@@ -46,6 +49,15 @@ public class OrderSimpleApiController {
         List<Order> orders = orderRepository.findAllWithMemberDelivery();
         List<SimpleOrderDtoV3> ordersDto = orders.stream().map(SimpleOrderDtoV3::new).toList();
         return new Result(ordersDto);
+    }
+
+    //Dto를 Repository에서 반환해주는 걸로 변경 (JPA에서 DTO로 바로 반환하기)
+    @GetMapping("/api/v4/simple-orders")
+    public Result orderV4() {
+        List<OrderSimpleQueryDto> orders = orderSimpleQueryRepository.findOrderDtos();
+
+        return new Result(orders);
+
     }
 
     @Data
