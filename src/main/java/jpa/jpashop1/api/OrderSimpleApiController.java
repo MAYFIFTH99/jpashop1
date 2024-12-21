@@ -37,8 +37,15 @@ public class OrderSimpleApiController {
     public Result ordersV2() {
         List<Order> orders = orderRepository.findAllByString(new OrderSearch());
 
-        List<SimpleOrderDto> orderDtos = orders.stream().map(m -> new SimpleOrderDto(m.getId(), m.getMember().getName(), m.getOrderDate(), m.getStatus(), m.getDelivery().getAddress())).toList();
+        List<SimpleOrderDtoV2> orderDtos = orders.stream().map(m -> new SimpleOrderDtoV2(m.getId(), m.getMember().getName(), m.getOrderDate(), m.getStatus(), m.getDelivery().getAddress())).toList();
         return new Result(orderDtos);
+    }
+
+    @GetMapping("/api/v3/simple-orders")
+    public Result orderV3() {
+        List<Order> orders = orderRepository.findAllWithMemberDelivery();
+        List<SimpleOrderDtoV3> ordersDto = orders.stream().map(SimpleOrderDtoV3::new).toList();
+        return new Result(ordersDto);
     }
 
     @Data
@@ -49,11 +56,28 @@ public class OrderSimpleApiController {
 
     @Data
     @AllArgsConstructor
-    static class SimpleOrderDto {
+    static class SimpleOrderDtoV2 {
         private Long orderId;
         private String name;
         private LocalDateTime localDateTime;
         private OrderStatus orderStatus;
         private Address address;
+    }
+
+    @Data
+    static class SimpleOrderDtoV3 {
+        private Long orderId;
+        private String name;
+        private LocalDateTime localDateTime;
+        private OrderStatus orderStatus;
+        private Address address;
+
+        public SimpleOrderDtoV3(Order order) {
+            orderId = order.getId();
+            name = order.getMember().getName();
+            localDateTime = order.getOrderDate();
+            orderStatus = order.getStatus();
+            address = order.getDelivery().getAddress();
+        }
     }
 }
