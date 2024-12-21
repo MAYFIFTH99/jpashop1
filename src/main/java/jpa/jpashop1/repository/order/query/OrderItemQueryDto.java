@@ -5,13 +5,13 @@ import lombok.Data;
 @Data
 public class OrderItemQueryDto {
 
-    private Long itemId;
+    private Long orderId;
     private String itemName;
     private int orderPrice;
     private int count;
 
     public OrderItemQueryDto(Long itemId, String itemName, int orderPrice, int count) {
-        this.itemId = itemId;
+        this.orderId = itemId;
         this.itemName = itemName;
         this.orderPrice = orderPrice;
         this.count = count;
