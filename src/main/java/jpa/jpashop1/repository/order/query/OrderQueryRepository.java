@@ -70,4 +70,19 @@ public class OrderQueryRepository {
 
         return result;
     }
+
+    public List<OrderFlatDto> findAllByDtoFlatOptimization() {
+        //SQL 쿼리는 1번 나가지만, DB에는 중복으로 데이터가 존재한다.
+        //페이징이 가능은 하지만, 원하는 결과대로 되진 않는다.
+        return em.createQuery(
+                "select new jpa.jpashop1.repository.order.query.OrderFlatDto(o.id, m.name, o.orderDate, o.status, d.address, i.name, oi.orderPrice, oi.count) " +
+                        "from Order o " +
+                        "join o.member m " +
+                        "join o.delivery d " +
+                        "join o.orderItems oi " +
+                        "join oi.item i", OrderFlatDto.class
+        ).getResultList();
+
+
+    }
 }
